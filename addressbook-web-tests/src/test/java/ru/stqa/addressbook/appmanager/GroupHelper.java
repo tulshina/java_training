@@ -11,7 +11,6 @@ public class GroupHelper extends HelperBase {
 
     public GroupHelper(FirefoxDriver wd) {
         super(wd);
-
     }
 
     public void returnToGroupPage() {
