@@ -7,9 +7,8 @@ import ru.stqa.addressbook.model.ContactData;
 /**
  * Created by User on 27.02.2017.
  */
-public class ContactHelper extends HelperBase{
-    private FirefoxDriver wd;
-
+public class ContactHelper extends HelperBase {
+    
     public ContactHelper(FirefoxDriver wd) {
         super(wd);
     }
@@ -19,14 +18,27 @@ public class ContactHelper extends HelperBase{
     }
 
     public void fillContactForm(ContactData contactData) {
-        type(By.name("firstname"),contactData.getFirstname());
-        type(By.name("lastname"),contactData.getLastname());
-        type(By.name("address"),contactData.getAddress());
-        type(By.name("mobile"),contactData.getMobile());
-        type(By.name("email"),contactData.getEmail());
+        type(By.name("firstname"), contactData.getFirstname());
+        type(By.name("lastname"), contactData.getLastname());
+        type(By.name("address"), contactData.getAddress());
+        type(By.name("mobile"), contactData.getMobile());
+        type(By.name("email"), contactData.getEmail());
     }
 
     public void gotoAddContactPage() {
         click(By.linkText("add new"));
     }
+
+    public void selectContact() {
+            click(By.name("selected[]"));
+       }
+
+    public void deleteSelectedContacts() {
+        click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+    }
+
+    public void acceptAlert() {
+        wd.switchTo().alert().accept();
+    }
+
 }
