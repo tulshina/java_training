@@ -8,7 +8,7 @@ import ru.stqa.addressbook.model.ContactData;
  * Created by User on 27.02.2017.
  */
 public class ContactHelper extends HelperBase {
-    
+
     public ContactHelper(FirefoxDriver wd) {
         super(wd);
     }
@@ -41,4 +41,11 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
+    public void clickEditContact() {
+        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    }
+
+    public void submitContactModification() {
+        click(By.name("update"));
+    }
 }
