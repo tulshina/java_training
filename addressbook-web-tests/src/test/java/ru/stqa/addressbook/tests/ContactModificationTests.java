@@ -19,6 +19,10 @@ public class ContactModificationTests extends TestBase {
                 null);
 
         app.getNavigationHelper().returnToHomePage();
+        if (!app.getContactHelper().isThereAContact()) {
+            app.getContactHelper().createContact(contactData);
+            app.getNavigationHelper().returnToHomePage();
+        }
         app.getContactHelper().selectContact();
         app.getContactHelper().clickEditContact();
         app.getContactHelper().fillContactForm(contactData, false);
