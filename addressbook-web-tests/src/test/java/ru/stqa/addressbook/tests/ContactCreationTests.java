@@ -13,8 +13,9 @@ public class ContactCreationTests extends TestBase {
                 "TestSurname",
                 "Saint Petersburg",
                 "89113333333",
-                "test@gmail.com");
-        app.getContactHelper().fillContactForm(contactData);
+                "test@gmail.com",
+                "test1");
+        app.getContactHelper().fillContactForm(contactData, true);
         app.getContactHelper().submitContactCreation();
         app.getNavigationHelper().returnToHomePage();
 

@@ -15,12 +15,13 @@ public class ContactModificationTests extends TestBase {
                 "TestSurnameModified",
                 "Saint Petersburg",
                 "89113333333",
-                "test@gmail.com");
+                "test@gmail.com",
+                null);
 
         app.getNavigationHelper().returnToHomePage();
         app.getContactHelper().selectContact();
         app.getContactHelper().clickEditContact();
-        app.getContactHelper().fillContactForm(contactData);
+        app.getContactHelper().fillContactForm(contactData, false);
         app.getContactHelper().submitContactModification();
         app.getNavigationHelper().returnToHomePage();
 
