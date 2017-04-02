@@ -10,6 +10,8 @@ import ru.stqa.addressbook.model.Contacts;
 
 import java.util.List;
 
+import static java.lang.String.format;
+
 /**
  * Created by User on 27.02.2017.
  */
@@ -27,7 +29,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("lastname"), contactData.getLastname());
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("address"), contactData.getAddress());
-        type(By.name("mobile"), contactData.getMobile());
+        type(By.name("mobile"), contactData.getMobilePhone());
         type(By.name("email"), contactData.getEmail());
         if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
@@ -96,27 +98,44 @@ public class ContactHelper extends HelperBase {
 
     private Contacts contactCache = null;
 
-    public Contacts  all() {
+    public Contacts all() {
         if (contactCache != null) {
             return new Contacts(contactCache);
         }
         contactCache = new Contacts();
         List<WebElement> rows = wd.findElements(By.name("entry"));
-
         for (WebElement row : rows) {
             List<WebElement> columns = row.findElements(By.tagName("td"));
             int id = Integer.parseInt(columns.get(0).findElement(By.tagName("input")).getAttribute("value"));
             String lastName = columns.get(1).getText();
             String firstName = columns.get(2).getText();
             String address = columns.get(3).getText();
-            String mobile = columns.get(5).getText();
+            String allPhones = columns.get(5).getText();
             String email = columns.get(4).getText();
             ContactData contact = new ContactData()
-                    .withId(id).withLastname(lastName).withFirstname(firstName).withAddress(address).withMobile(mobile).withEmail(email);
+                    .withId(id).withLastname(lastName).withFirstname(firstName).withAddress(address)
+                    .withAllPhones(allPhones).withEmail(email);
             contactCache.add(contact);
         }
         return new Contacts(contactCache);
     }
 
 
+    public ContactData infoFromEditForm(ContactData contact) {
+        initContactModificationById(contact.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        wd.navigate().back();
+        return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
+                .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work);
+
+
+    }
+
+    private void initContactModificationById(int id) {
+        wd.findElement(By.cssSelector(format("a[href='edit.php?id=%s']", id))).click();
+    }
 }
