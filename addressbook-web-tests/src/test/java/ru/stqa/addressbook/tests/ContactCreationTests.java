@@ -19,8 +19,8 @@ public class ContactCreationTests extends TestBase {
                 .withEmail("test@gmail.com").withGroup("test1");
         app.contact().create(contact);
         app.goTo().homePage();
+        assertThat(app.contact().getContactCount(), equalTo(before.size() + 1));
         Contacts after = app.contact().all();
-        assertThat(after.size(), equalTo(before.size() + 1));
 
 //        int max = 0;
 //        for (ContactData c : after) {

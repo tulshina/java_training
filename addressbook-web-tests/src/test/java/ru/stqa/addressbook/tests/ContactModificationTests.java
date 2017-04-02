@@ -35,10 +35,8 @@ public class ContactModificationTests extends TestBase {
                 .withMobile("89113333333").withEmail("test@gmail.com");
         app.contact().modify(contact);
         app.goTo().homePage();
+        assertThat(app.contact().getContactCount(), equalTo(before.size()));
         Contacts after = app.contact().all();
-
-        Assert.assertEquals(after.size(), before.size());
-
         before.remove(modifiedContact);
         before.add(contact);
 //        Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
