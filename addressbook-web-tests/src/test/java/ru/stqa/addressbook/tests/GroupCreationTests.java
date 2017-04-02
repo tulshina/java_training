@@ -9,17 +9,16 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupCreationTests extends TestBase {
 
-    @Test (enabled = false)
+    @Test
     public void testGroupCreation() {
         app.goTo().groupPage();
 //        Set<GroupData> before = app.group().all();
         Groups before = app.group().all();
         GroupData group = new GroupData().withName("test2");
         app.group().create(group);
+        assertThat(app.group().count(),equalTo(before.size()+1));
         Groups after = app.group().all();
 //        assertEquals(after.size(), before.size() + 1);
-        assertThat(after.size(),equalTo(before.size()+1));
-
 //        int max = 0;
 //        for (GroupData g : after) {
 //            if (g.getId() > max) {
@@ -33,6 +32,17 @@ public class GroupCreationTests extends TestBase {
 //        assertEquals(before, after);
         assertThat(after, equalTo(
                 before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+    }
+
+    @Test
+    public void testBadGroupCreation() {
+        app.goTo().groupPage();
+        Groups before = app.group().all();
+        GroupData group = new GroupData().withName("test2'");
+        app.group().create(group);
+        assertThat(app.group().count(),equalTo(before.size()));
+        Groups after = app.group().all();
+        assertThat(after, equalTo(before));
     }
 
 }
