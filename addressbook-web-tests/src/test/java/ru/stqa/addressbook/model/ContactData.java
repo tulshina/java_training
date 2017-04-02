@@ -1,36 +1,47 @@
 package ru.stqa.addressbook.model;
 
 public class ContactData {
-    private int id;
-    private final String firstname;
-    private final String lastname;
-    private final String address;
-    private final String mobile;
-    private final String email;
+    private int id = Integer.MAX_VALUE;
+    private String firstname;
+    private String lastname;
+    private String address;
+    private String mobile;
+    private String email;
     private String group;
 
-    public ContactData(String lastname, String firstname, String address, String mobile, String email, String group) {
-        this.id = Integer.MAX_VALUE;
-        this.lastname = lastname;
-        this.firstname = firstname;
-        this.address = address;
-        this.mobile = mobile;
-        this.email = email;
-        this.group = group;
+    public ContactData withId(int id) {
+        this.id = id;
+        return this;
     }
 
-    public ContactData(int id, String lastname, String firstname, String address, String mobile, String email, String group) {
-        this.id = id;
-        this.lastname = lastname;
+    public ContactData withFirstname(String firstname) {
         this.firstname = firstname;
-        this.address = address;
-        this.mobile = mobile;
-        this.email = email;
-        this.group = group;
+        return this;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public ContactData withLastname(String lastname) {
+        this.lastname = lastname;
+        return this;
+    }
+
+    public ContactData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public ContactData withMobile(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+
+    public ContactData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public ContactData withGroup(String group) {
+        this.group = group;
+        return this;
     }
 
     public int getId() {
@@ -80,21 +91,16 @@ public class ContactData {
 
         ContactData that = (ContactData) o;
 
+        if (id != that.id) return false;
         if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
-        if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (mobile != null ? !mobile.equals(that.mobile) : that.mobile != null) return false;
-        return email != null ? email.equals(that.email) : that.email == null;
+        return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
     }
 
     @Override
     public int hashCode() {
-        int result = firstname != null ? firstname.hashCode() : 0;
+        int result = id;
+        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (mobile != null ? mobile.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
         return result;
     }
-
 }
