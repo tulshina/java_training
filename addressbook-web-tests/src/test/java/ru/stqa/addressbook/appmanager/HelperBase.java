@@ -33,9 +33,9 @@ public class HelperBase {
         }
     }
 
-    protected void attached(By locator, File file) {
+    protected void attached(By locator, String file) {
         if (file != null) {
-            wd.findElement(locator).sendKeys(file.getAbsolutePath());
+            wd.findElement(locator).sendKeys(new File(file).getAbsolutePath());
         }
     }
 
