@@ -1,7 +1,6 @@
 package ru.stqa.addressbook.model;
 
 import com.google.common.collect.ForwardingSet;
-import com.sun.xml.internal.bind.v2.runtime.reflect.Accessor;
 
 import java.util.HashSet;
 import java.util.Set;
