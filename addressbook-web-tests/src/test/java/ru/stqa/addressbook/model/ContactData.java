@@ -3,31 +3,67 @@ package ru.stqa.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "addressbook")
 @XStreamAlias("contact")
 public class ContactData {
+    @Id
+    @Column (name = "id")
     @XStreamOmitField
     private int id = Integer.MAX_VALUE;
+
+    @Column(name = "firstname")
     @Expose
     private String firstname;
+
+    @Column(name = "lastname")
     @Expose
     private String lastname;
+
+    @Transient
     @Expose
     private String address;
+
+    @Column(name = "mobile")
+    @Type(type = "text")
     @Expose
     private String mobilePhone;
+
+    @Column(name = "home")
+    @Type(type = "text")
     private String homePhone;
+
+    @Column(name = "work")
+    @Type(type = "text")
     private String workPhone;
+
+    @Transient
     private String allPhones;
+
+    @Transient
     @Expose
     private String email;
+
+    @Transient
     private String email2;
+
+    @Transient
     private String email3;
+
+    @Transient
     private String allEmails;
+
+    @Transient
     private String group;
+
+    @Column(name = "photo")
+    @Type(type = "text")
     @Expose
     private String photo;
-
 
     public ContactData withPhoto(String photo) {
         this.photo = photo;
