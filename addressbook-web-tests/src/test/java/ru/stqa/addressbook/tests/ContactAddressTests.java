@@ -21,7 +21,7 @@ public class ContactAddressTests extends TestBase {
             app.contact().create(new ContactData()
                     .withLastname("TestSurname").withFirstname("TestName")
                     .withAddress("Saint Petersburg").withMobilePhone("89113333333")
-                    .withEmail("test@gmail.com").withGroup("test1"));
+                    .withEmail("test@gmail.com"));
             app.goTo().homePage();
         }
     }
