@@ -4,13 +4,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.Contacts;
+import ru.stqa.addressbook.model.GroupData;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static java.lang.String.format;
+import static java.lang.Thread.sleep;
 
 /**
  * Created by User on 27.02.2017.
@@ -79,6 +81,21 @@ public class ContactHelper extends HelperBase {
         fillContactForm(contactData, false);
         contactCache = null;
         submitContactModification();
+    }
+
+    public void addToGroup(ContactData contactData, GroupData groupData) throws InterruptedException {
+        selectContactById(contactData.getId());
+        selectGroupById(groupData.getId());
+        submitAddToGroup();
+    }
+
+    private void selectGroupById(int id) throws InterruptedException {
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(Integer.toString(id));
+        sleep(1000);
+    }
+
+    private void submitAddToGroup() {
+        wd.findElement(By.name("add")).click();
     }
 
     public void delete(ContactData contact) {
@@ -151,4 +168,30 @@ public class ContactHelper extends HelperBase {
     private void initContactDetailsById(int id) {
         wd.findElement(By.cssSelector(format("a[href='view.php?id=%s']", id))).click();
     }
+
+    public void removeFromGroup(ContactData contact, GroupData group) {
+        setGroupFilterById(group.getId());
+        selectContactById(contact.getId());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        submitRemoveFromGroup();
+
+    }
+
+    private void submitRemoveFromGroup() {
+        wd.findElement(By.name("remove")).click();
+    }
+
+    private void setGroupFilterById(int id) {
+        new Select(wd.findElement(By.name("group"))).selectByValue(Integer.toString(id));
+        try {
+            sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

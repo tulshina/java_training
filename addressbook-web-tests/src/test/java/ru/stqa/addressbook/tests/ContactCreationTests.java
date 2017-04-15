@@ -7,7 +7,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.addressbook.model.ContactData;
 import ru.stqa.addressbook.model.Contacts;
-import ru.stqa.addressbook.model.GroupData;
 
 import java.io.BufferedReader;
 import java.io.File;
