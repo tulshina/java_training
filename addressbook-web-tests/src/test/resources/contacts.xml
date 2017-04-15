@@ -1,0 +1,10 @@
+<list>
+  <contact>
+    <firstname>TestName 0</firstname>
+    <lastname>TestSurname 0</lastname>
+    <address>City 0</address>
+    <mobilePhone>+79112223450</mobilePhone>
+    <email>test0@gmail.com</email>
+    <photo>src\test\resources\123.png</photo>
+  </contact>
+</list>

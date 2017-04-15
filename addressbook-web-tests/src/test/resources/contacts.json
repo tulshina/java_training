@@ -1,0 +1,10 @@
+[
+  {
+    "firstname": "TestName 0",
+    "lastname": "TestSurname 0",
+    "address": "City 0",
+    "mobilePhone": "+79112223450",
+    "email": "test0@gmail.com",
+    "photo": "src/test/resources/123.png"
+  }
+]
