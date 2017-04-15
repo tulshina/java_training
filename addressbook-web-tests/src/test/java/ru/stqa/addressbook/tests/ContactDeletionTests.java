@@ -18,8 +18,8 @@ import java.util.Set;
 public class ContactDeletionTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
-        app.goTo().homePage();
-        if (app.contact().all().size() == 0) {
+        if (app.db().contacts().size() == 0) {
+            app.goTo().homePage();
             app.contact().create(new ContactData()
                     .withLastname("TestSurname").withFirstname("TestName")
                     .withAddress("Saint Petersburg").withMobilePhone("89113333333")
@@ -30,15 +30,13 @@ public class ContactDeletionTests extends TestBase {
 
     @Test
     public void testContactDeletion() {
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData deletedContact = before.iterator().next();
         app.contact().delete(deletedContact);
         app.goTo().homePage();
         assertThat(app.contact().getContactCount(), equalTo(before.size() - 1));
-        Contacts after = app.contact().all();
-//        before.remove(deletedContact);
+        Contacts after = app.db().contacts();
         assertThat(after, equalTo(before.without(deletedContact)));
-//        Assert.assertEquals(before, after);
     }
 
 }

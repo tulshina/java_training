@@ -12,7 +12,7 @@ import javax.persistence.*;
 @XStreamAlias("contact")
 public class ContactData {
     @Id
-    @Column (name = "id")
+    @Column(name = "id")
     @XStreamOmitField
     private int id = Integer.MAX_VALUE;
 
@@ -24,7 +24,8 @@ public class ContactData {
     @Expose
     private String lastname;
 
-    @Transient
+    @Column(name = "address")
+    @Type(type = "text")
     @Expose
     private String address;
 
@@ -35,16 +36,17 @@ public class ContactData {
 
     @Column(name = "home")
     @Type(type = "text")
-    private String homePhone;
+    private String homePhone = "";
 
     @Column(name = "work")
     @Type(type = "text")
-    private String workPhone;
+    private String workPhone = "";
 
     @Transient
     private String allPhones;
 
-    @Transient
+    @Column(name = "email")
+    @Type(type = "text")
     @Expose
     private String email;
 
@@ -135,9 +137,11 @@ public class ContactData {
         this.allPhones = allPhones;
         return this;
     }
+
     public String getPhoto() {
         return photo;
     }
+
     public String getAllPhones() {
         return allPhones;
     }
@@ -153,6 +157,7 @@ public class ContactData {
     public String getEmail2() {
         return email2;
     }
+
     public String getEmail3() {
         return email3;
     }
@@ -190,6 +195,39 @@ public class ContactData {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ContactData that = (ContactData) o;
+
+        if (id != that.id) return false;
+        if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
+        if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
+        if (address != null ? !address.equals(that.address) : that.address != null) return false;
+        if (mobilePhone != null ? !mobilePhone.equals(that.mobilePhone) : that.mobilePhone != null) return false;
+        if (homePhone != null ? !homePhone.equals(that.homePhone) : that.homePhone != null) return false;
+        if (workPhone != null ? !workPhone.equals(that.workPhone) : that.workPhone != null) return false;
+        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        return group != null ? group.equals(that.group) : that.group == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (mobilePhone != null ? mobilePhone.hashCode() : 0);
+        result = 31 * result + (homePhone != null ? homePhone.hashCode() : 0);
+        result = 31 * result + (workPhone != null ? workPhone.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (group != null ? group.hashCode() : 0);
+        return result;
+    }
+
+
+    @Override
     public String toString() {
         return "ContactData{" +
                 "id=" + id +
@@ -204,23 +242,4 @@ public class ContactData {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ContactData that = (ContactData) o;
-
-        if (id != that.id) return false;
-        if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
-        return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
-        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
-        return result;
-    }
 }
