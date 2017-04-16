@@ -1,4 +1,4 @@
-package ru.stqa.rest;
+package ru.stqa.rest.model;
 
 /**
  * Created by User on 16.04.2017.
@@ -7,6 +7,16 @@ public class Issue {
     private int id;
     private String subject;
     private String description;
+    private String state_name;
+
+    public String getStateName() {
+        return state_name;
+    }
+
+    public Issue withStateName(String stateName) {
+        this.state_name = stateName;
+        return this;
+    }
 
     public int getId() {
         return id;
