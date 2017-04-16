@@ -19,6 +19,7 @@ public class RegistrationHelper extends HelperBase {
         click(By.cssSelector("input[value='Signup']"));
     }
 
+
     public void finish(String confirmationLink, String password) {
         wd.get(confirmationLink);
         type(By.name("password"), password);
